@@ -5,14 +5,10 @@ using PCStore_MVC.Models.ModelDB;
 
 namespace PCStore_MVC.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 	{
 		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
 			: base(options)
-		{
-		}
-
-		public ApplicationDbContext()
 		{
 		}
 
@@ -21,7 +17,7 @@ namespace PCStore_MVC.Data
 			base.OnModelCreating(builder);
 
 			builder.HasDefaultSchema("Identity");
-			builder.Entity<IdentityUser>(
+			builder.Entity<ApplicationUser>(
 				entity => { entity.ToTable(name: "User"); }
 			);
 
@@ -62,7 +58,5 @@ namespace PCStore_MVC.Data
 		public virtual DbSet<Producer> Producers { get; set; }
 
 		public virtual DbSet<Product> Products { get; set; }
-
-		//public virtual DbSet<User> Users { get; set; }
-	}
+    }
 }

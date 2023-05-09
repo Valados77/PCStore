@@ -25,7 +25,7 @@ public partial class Product
     public short UnitsInStock { get; set; }
 
     [Column(TypeName = "image")]
-    public byte[]? Picture { get; set; }
+    public byte[]? Picture { get; set; } = null!;
 
     [InverseProperty("Product")]
     public virtual ICollection<BasketProduct> BasketProducts { get; } = new List<BasketProduct>();

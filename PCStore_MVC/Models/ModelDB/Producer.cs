@@ -15,10 +15,6 @@ public partial class Producer
     [Unicode(false)]
     public string ProducerName { get; set; } = null!;
 
-    [StringLength(128)]
-    [Unicode(false)]
-    public string Address { get; set; } = null!;
-
     [StringLength(15)]
     public string City { get; set; } = null!;
 

@@ -5,7 +5,7 @@ namespace PCStore_MVC.Models
 {
 	public record HomeIndexViewModel
 	(
-		IList<IdentityUser> Users,
+		IList<ApplicationUser> Users,
 		IList<Category> Categories,
 		IList<Product> Products
 	);

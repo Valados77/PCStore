@@ -25,5 +25,5 @@ public partial class Order
 
     [ForeignKey("UserId")]
     [InverseProperty("Orders")]
-    public virtual User User { get; set; } = null!;
+    public virtual ApplicationUser ApplicationUser { get; set; } = null!;
 }
