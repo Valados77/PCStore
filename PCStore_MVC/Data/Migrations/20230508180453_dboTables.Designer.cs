@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PCStore_MVC.Data;
 
@@ -11,13 +12,15 @@ using PCStore_MVC.Data;
 namespace PCStore_MVC.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230508180453_dboTables")]
+    partial class dboTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasDefaultSchema("Identity")
+                .HasDefaultSchema("dbo")
                 .HasAnnotation("ProductVersion", "7.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
@@ -47,7 +50,7 @@ namespace PCStore_MVC.Data.Migrations
                         .HasDatabaseName("RoleNameIndex")
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
-                    b.ToTable("Role", "Identity");
+                    b.ToTable("Role", "dbo");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -72,7 +75,7 @@ namespace PCStore_MVC.Data.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("RoleClaims", "Identity");
+                    b.ToTable("RoleClaims", "dbo");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
@@ -141,7 +144,7 @@ namespace PCStore_MVC.Data.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.ToTable("User", "Identity");
+                    b.ToTable("User", "dbo");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
 
@@ -170,7 +173,7 @@ namespace PCStore_MVC.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserClaims", "Identity");
+                    b.ToTable("UserClaims", "dbo");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
@@ -194,7 +197,7 @@ namespace PCStore_MVC.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserLogins", "Identity");
+                    b.ToTable("UserLogins", "dbo");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
@@ -209,7 +212,7 @@ namespace PCStore_MVC.Data.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("UserRoles", "Identity");
+                    b.ToTable("UserRoles", "dbo");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -230,10 +233,10 @@ namespace PCStore_MVC.Data.Migrations
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("UserTokens", "Identity");
+                    b.ToTable("UserTokens", "dbo");
                 });
 
-            modelBuilder.Entity("PCStore_MVC.Models.ModelDB.BasketProduct", b =>
+            modelBuilder.Entity("PCStore.MVC.Models.BasketProduct", b =>
                 {
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
@@ -248,10 +251,10 @@ namespace PCStore_MVC.Data.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("BasketProducts", "Identity");
+                    b.ToTable("BasketProducts", "dbo");
                 });
 
-            modelBuilder.Entity("PCStore_MVC.Models.ModelDB.Category", b =>
+            modelBuilder.Entity("PCStore.MVC.Models.Category", b =>
                 {
                     b.Property<int>("CategoryId")
                         .ValueGeneratedOnAdd()
@@ -273,10 +276,10 @@ namespace PCStore_MVC.Data.Migrations
 
                     b.HasKey("CategoryId");
 
-                    b.ToTable("Categories", "Identity");
+                    b.ToTable("Categories", "dbo");
                 });
 
-            modelBuilder.Entity("PCStore_MVC.Models.ModelDB.Order", b =>
+            modelBuilder.Entity("PCStore.MVC.Models.Order", b =>
                 {
                     b.Property<int>("OrderId")
                         .ValueGeneratedOnAdd()
@@ -301,10 +304,10 @@ namespace PCStore_MVC.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Orders", "Identity");
+                    b.ToTable("Orders", "dbo");
                 });
 
-            modelBuilder.Entity("PCStore_MVC.Models.ModelDB.OrderDetail", b =>
+            modelBuilder.Entity("PCStore.MVC.Models.OrderDetail", b =>
                 {
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
@@ -319,10 +322,10 @@ namespace PCStore_MVC.Data.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("OrderDetails", "Identity");
+                    b.ToTable("OrderDetails", "dbo");
                 });
 
-            modelBuilder.Entity("PCStore_MVC.Models.ModelDB.Producer", b =>
+            modelBuilder.Entity("PCStore.MVC.Models.Producer", b =>
                 {
                     b.Property<int>("ProducerId")
                         .ValueGeneratedOnAdd()
@@ -349,10 +352,10 @@ namespace PCStore_MVC.Data.Migrations
 
                     b.HasKey("ProducerId");
 
-                    b.ToTable("Producers", "Identity");
+                    b.ToTable("Producers", "dbo");
                 });
 
-            modelBuilder.Entity("PCStore_MVC.Models.ModelDB.Product", b =>
+            modelBuilder.Entity("PCStore.MVC.Models.Product", b =>
                 {
                     b.Property<int>("ProductId")
                         .ValueGeneratedOnAdd()
@@ -387,10 +390,10 @@ namespace PCStore_MVC.Data.Migrations
 
                     b.HasIndex("ProducerId");
 
-                    b.ToTable("Products", "Identity");
+                    b.ToTable("Product", "dbo");
                 });
 
-            modelBuilder.Entity("PCStore_MVC.Models.ModelDB.User", b =>
+            modelBuilder.Entity("PCStore.MVC.Models.User", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
@@ -473,15 +476,15 @@ namespace PCStore_MVC.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("PCStore_MVC.Models.ModelDB.BasketProduct", b =>
+            modelBuilder.Entity("PCStore.MVC.Models.BasketProduct", b =>
                 {
-                    b.HasOne("PCStore_MVC.Models.ModelDB.Product", "Product")
+                    b.HasOne("PCStore.MVC.Models.Product", "Product")
                         .WithMany("BasketProducts")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PCStore_MVC.Models.ModelDB.User", "User")
+                    b.HasOne("PCStore.MVC.Models.User", "User")
                         .WithMany("BasketProducts")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -492,9 +495,9 @@ namespace PCStore_MVC.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("PCStore_MVC.Models.ModelDB.Order", b =>
+            modelBuilder.Entity("PCStore.MVC.Models.Order", b =>
                 {
-                    b.HasOne("PCStore_MVC.Models.ModelDB.User", "User")
+                    b.HasOne("PCStore.MVC.Models.User", "User")
                         .WithMany("Orders")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -503,15 +506,15 @@ namespace PCStore_MVC.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("PCStore_MVC.Models.ModelDB.OrderDetail", b =>
+            modelBuilder.Entity("PCStore.MVC.Models.OrderDetail", b =>
                 {
-                    b.HasOne("PCStore_MVC.Models.ModelDB.Order", "Order")
+                    b.HasOne("PCStore.MVC.Models.Order", "Order")
                         .WithMany("OrderDetails")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PCStore_MVC.Models.ModelDB.Product", "Product")
+                    b.HasOne("PCStore.MVC.Models.Product", "Product")
                         .WithMany("OrderDetails")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -522,15 +525,15 @@ namespace PCStore_MVC.Data.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("PCStore_MVC.Models.ModelDB.Product", b =>
+            modelBuilder.Entity("PCStore.MVC.Models.Product", b =>
                 {
-                    b.HasOne("PCStore_MVC.Models.ModelDB.Category", "Category")
+                    b.HasOne("PCStore.MVC.Models.Category", "Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PCStore_MVC.Models.ModelDB.Producer", "Producer")
+                    b.HasOne("PCStore.MVC.Models.Producer", "Producer")
                         .WithMany("Products")
                         .HasForeignKey("ProducerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -541,29 +544,29 @@ namespace PCStore_MVC.Data.Migrations
                     b.Navigation("Producer");
                 });
 
-            modelBuilder.Entity("PCStore_MVC.Models.ModelDB.Category", b =>
+            modelBuilder.Entity("PCStore.MVC.Models.Category", b =>
                 {
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("PCStore_MVC.Models.ModelDB.Order", b =>
+            modelBuilder.Entity("PCStore.MVC.Models.Order", b =>
                 {
                     b.Navigation("OrderDetails");
                 });
 
-            modelBuilder.Entity("PCStore_MVC.Models.ModelDB.Producer", b =>
+            modelBuilder.Entity("PCStore.MVC.Models.Producer", b =>
                 {
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("PCStore_MVC.Models.ModelDB.Product", b =>
+            modelBuilder.Entity("PCStore.MVC.Models.Product", b =>
                 {
                     b.Navigation("BasketProducts");
 
                     b.Navigation("OrderDetails");
                 });
 
-            modelBuilder.Entity("PCStore_MVC.Models.ModelDB.User", b =>
+            modelBuilder.Entity("PCStore.MVC.Models.User", b =>
                 {
                     b.Navigation("BasketProducts");
 

@@ -1,14 +1,18 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using PCStore.MVC.Models;
+using PCStore_MVC.Models.ModelDB;
 
 namespace PCStore_MVC.Data
 {
-	public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext
 	{
 		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
 			: base(options)
+		{
+		}
+
+		public ApplicationDbContext()
 		{
 		}
 
@@ -16,7 +20,7 @@ namespace PCStore_MVC.Data
 		{
 			base.OnModelCreating(builder);
 
-			builder.HasDefaultSchema("dbo");
+			builder.HasDefaultSchema("Identity");
 			builder.Entity<IdentityUser>(
 				entity => { entity.ToTable(name: "User"); }
 			);
@@ -59,6 +63,6 @@ namespace PCStore_MVC.Data
 
 		public virtual DbSet<Product> Products { get; set; }
 
-		public virtual DbSet<Product> User { get; set; }
+		//public virtual DbSet<User> Users { get; set; }
 	}
 }

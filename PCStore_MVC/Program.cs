@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using PCStore.MVC.Services;
 using PCStore_MVC.Data;
+using PCStore_MVC.Models.ModelDB;
 
 var builder = WebApplication.CreateBuilder(args);
 

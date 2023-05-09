@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PCStore_MVC.Models;
 using System.Diagnostics;
+using Microsoft.EntityFrameworkCore;
+using PCStore_MVC.Data;
+using PCStore_MVC.Models.ModelDB;
 
 namespace PCStore_MVC.Controllers
 {
@@ -8,14 +11,27 @@ namespace PCStore_MVC.Controllers
 	{
 		private readonly ILogger<HomeController> _logger;
 
-		public HomeController(ILogger<HomeController> logger)
+		private readonly ApplicationDbContext db;
+
+		public HomeController(ILogger<HomeController> logger,
+			ApplicationDbContext injectedContext)
 		{
 			_logger = logger;
+			db = injectedContext;
 		}
 
-		public IActionResult Index()
+		[ResponseCache(Duration = 10 /* seconds */,
+			Location = ResponseCacheLocation.Any)]
+		public async Task<IActionResult> Index()
 		{
-			return View();
+			HomeIndexViewModel model = new
+			(
+				Users: await db.Users.ToListAsync(),
+				Categories: await db.Categories.ToListAsync(),
+				Products: await db.Products.ToListAsync()
+			);
+
+			return View(model); // pass model to view
 		}
 
 		public IActionResult Privacy()

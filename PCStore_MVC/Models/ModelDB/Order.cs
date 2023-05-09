@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
-using PCStore.MVC.Models;
 
-namespace PCStore.MVC.Models;
+namespace PCStore_MVC.Models.ModelDB;
 
 public partial class Order
 {
