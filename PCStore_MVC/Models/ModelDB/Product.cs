@@ -19,7 +19,10 @@ public partial class Product
 
     public int CategoryId { get; set; }
 
-    [Column(TypeName = "money")]
+	[Column(TypeName = "text")]
+	public string? Description { get; set; }
+
+	[Column(TypeName = "money")]
     public decimal UnitPrice { get; set; }
 
     public short UnitsInStock { get; set; }

@@ -1,0 +1,35 @@
+﻿@{
+	ViewData["Title"] = "Продукты в категории - " + Model.CategoryName;
+}
+<h2>Продукты в категории @Model.CategoryName</h2>
+<hr />
+
+@if (Model.Products.Count > 0)
+{
+	<div class="row">
+		@foreach (var product in Model.Products)
+		{
+			<div class="col-md-4">
+				<div class="thumbnail">
+					<img src="@product.Picture" alt="@product.ProductName" />
+					<div class="caption">
+						<h4>@product.ProductName</h4>
+						<p>@product.Description</p>
+						<p>@product.UnitPrice.ToString("c")</p>
+					</div>
+				</div>
+			</div>
+		}
+	</div>
+}
+else
+{
+	<p>Не найдено продуктов в выбранной категории.</p>
+}
+
+@if (User.IsInRole("Administrators"))
+{
+	<div style="display: flex; justify-content: center;">
+		<button style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">Добавить продукт</button>
+	</div>
+}

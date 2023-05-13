@@ -48,20 +48,36 @@ namespace PCStore_MVC.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public IActionResult CategoryDetail(int? id)
+        //public IActionResult CategoryDetail(int? id)
+        //{
+        //    if (!id.HasValue)
+        //    {
+        //        return BadRequest("You must pass a category ID in the route, for example, /Home/CategoryDetail/21");
+        //    }
+
+        //    Category? model = db.Categories.SingleOrDefault(p => p.CategoryId == id);
+        //    if (model is null)
+        //    {
+        //        return NotFound($"CategoryId {id} not found.");
+        //    }
+
+        //    return View(model); // pass model to view and then return result
+        //}
+
+        public IActionResult CategoryProducts(int? id)
         {
-            if (!id.HasValue)
-            {
-                return BadRequest("You must pass a category ID in the route, for example, /Home/CategoryDetail/21");
-            }
+	        if (!id.HasValue)
+	        {
+		        return BadRequest("You must pass a category ID in the route, for example, /Home/CategoryDetail/21");
+	        }
 
-            Category? model = db.Categories.SingleOrDefault(p => p.CategoryId == id);
-            if (model is null)
-            {
-                return NotFound($"CategoryId {id} not found.");
-            }
+	        Category? model = db.Categories.SingleOrDefault(c => c.CategoryId == id);
+	        if (model is null)
+	        {
+		        return NotFound($"CategoryId {id} not found.");
+	        }
 
-            return View(model); // pass model to view and then return result
+	        return View(model); // pass model to view and then return result
         }
-    }
+	}
 }

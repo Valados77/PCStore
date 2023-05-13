@@ -58,5 +58,7 @@ namespace PCStore_MVC.Data
 		public virtual DbSet<Producer> Producers { get; set; }
 
 		public virtual DbSet<Product> Products { get; set; }
+
+		public virtual DbSet<ImageModel> Images { get; set; }
     }
 }
