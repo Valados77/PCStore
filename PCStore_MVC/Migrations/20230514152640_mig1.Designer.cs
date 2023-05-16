@@ -9,11 +9,11 @@ using PCStore_MVC.Data;
 
 #nullable disable
 
-namespace PCStore_MVC.Data.Migrations
+namespace PCStore_MVC.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230509124104_ProducerChange")]
-    partial class ProducerChange
+    [Migration("20230514152640_mig1")]
+    partial class mig1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -223,9 +223,6 @@ namespace PCStore_MVC.Data.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(128)");
 
-                    b.Property<byte[]>("ProfilePicture")
-                        .HasColumnType("image");
-
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -288,12 +285,30 @@ namespace PCStore_MVC.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
-                    b.Property<byte[]>("Picture")
-                        .HasColumnType("image");
-
                     b.HasKey("CategoryId");
 
                     b.ToTable("Categories", "Identity");
+                });
+
+            modelBuilder.Entity("PCStore_MVC.Models.ModelDB.Image", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Format")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageTitle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Images", "Identity");
                 });
 
             modelBuilder.Entity("PCStore_MVC.Models.ModelDB.Order", b =>
@@ -377,8 +392,11 @@ namespace PCStore_MVC.Data.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<byte[]>("Picture")
-                        .HasColumnType("image");
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<int>("ImageId")
+                        .HasColumnType("int");
 
                     b.Property<int>("ProducerId")
                         .HasColumnType("int");
@@ -392,12 +410,11 @@ namespace PCStore_MVC.Data.Migrations
                     b.Property<decimal>("UnitPrice")
                         .HasColumnType("money");
 
-                    b.Property<short>("UnitsInStock")
-                        .HasColumnType("smallint");
-
                     b.HasKey("ProductId");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("ImageId");
 
                     b.HasIndex("ProducerId");
 
@@ -512,6 +529,12 @@ namespace PCStore_MVC.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("PCStore_MVC.Models.ModelDB.Image", "Image")
+                        .WithMany()
+                        .HasForeignKey("ImageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("PCStore_MVC.Models.ModelDB.Producer", "Producer")
                         .WithMany("Products")
                         .HasForeignKey("ProducerId")
@@ -519,6 +542,8 @@ namespace PCStore_MVC.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
+
+                    b.Navigation("Image");
 
                     b.Navigation("Producer");
                 });

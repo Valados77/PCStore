@@ -1,15 +1,50 @@
-﻿@{
-	ViewData["Title"] = "Product Detail - " + Model.CategoryName;
-}
-<h2>Category Detail</h2>
-<hr />
-<div>
-<dl class="dl-horizontal">
-	<dt>Category Id</dt>
-	<dd>@Model.CategoryName</dd>
-	<dt>Category Name</dt>
-	<dd>@Model.CategoryName</dd>
-	<dt>Description</dt>
-	<dd>@Model.Description</dd>
-</dl>
-</div>
+﻿@model IEnumerable<PCStore_MVC.Models.ModelDB.Product>
+
+<h1>@ViewData["Title"]</h1>
+
+<p>Продукты в этой категории:</p>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>Фото</th>
+			<th>Имя продукта</th>
+			<th>Описание</th>
+			<th>Цена</th>
+			<th>Произвоитель</th>
+			<th>Подробнее</th>
+			<th>Добавить в корзину</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var product in Model)
+		{
+			<tr>
+				<td><img src="/Products/@(product.Image.ImageTitle).@(product.Image.Format)" alt="@product.ProductName" width="100" height="100" /></td>
+				<td>@product.ProductName</td>
+				<td>@product.Description</td>
+				<td>@product.UnitPrice</td>
+				<td>@product.Producer.ProducerName</td>
+				<td>
+					<a asp-controller="Products" asp-action="Details"
+					   asp-route-Id="@product.ProductId" class="btn btn-primary">Подробнее</a>
+				</td>
+				<td>
+					<a asp-controller="Bascket" asp-action="AddToCart"
+				   asp-route-productId="@product.ProductId" asp-route-quantity="1"
+		   class="btn btn-success">Добавить в корзину</a>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
+
+@*
+<td>
+	<form asp-action="AddToCart" asp-controller="Cart" method="post">
+		<input type="hidden" name="productId" value="@product.ProductId" />
+		<input type="number" name="quantity" value="1" />
+		<button type="submit">Добавить в корзину</button>
+	</form>
+</td>
+*@

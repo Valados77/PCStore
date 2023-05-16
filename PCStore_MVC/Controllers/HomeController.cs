@@ -4,7 +4,6 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using PCStore_MVC.Data;
-using PCStore_MVC.Models.ModelDB;
 
 namespace PCStore_MVC.Controllers
 {
@@ -21,7 +20,7 @@ namespace PCStore_MVC.Controllers
             db = injectedContext;
         }
 
-        [ResponseCache(Duration = 10 /* seconds */,
+        [ResponseCache(Duration = 10,
             Location = ResponseCacheLocation.Any)]
         public async Task<IActionResult> Index()
         {
@@ -32,7 +31,7 @@ namespace PCStore_MVC.Controllers
                 Products: await db.Products.ToListAsync()
             );
 
-            return View(model); // pass model to view
+            return View(model);
         }
 
 		[Route("private")]
@@ -48,20 +47,16 @@ namespace PCStore_MVC.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public IActionResult CategoryDetail(int? id)
+        public IActionResult CategoryDetail(int categoryId)
         {
-            if (!id.HasValue)
-            {
-                return BadRequest("You must pass a category ID in the route, for example, /Home/CategoryDetail/21");
-            }
+            var products = db.Products
+	            .Include(p => p.Category)
+	            .Include(p => p.Producer)
+	            .Include(p=> p.Image)
+	            .Where(p => p.Category.CategoryId == categoryId).ToList();
 
-            Category? model = db.Categories.SingleOrDefault(p => p.CategoryId == id);
-            if (model is null)
-            {
-                return NotFound($"CategoryId {id} not found.");
-            }
-
-            return View(model); // pass model to view and then return result
+            ViewData["Title"] = db.Categories.FirstOrDefault(p => p.CategoryId == categoryId).CategoryName;
+			return View(products);
         }
     }
 }

@@ -31,6 +31,9 @@ namespace PCStore_MVC.Controllers
 				user = new();
 				user.UserName = UserEmail;
 				user.Email = UserEmail;
+				user.FirstName = "test";
+				user.LastName = "test";
+				user.PhysycalAddress = "test";
 				IdentityResult result = await userManager.CreateAsync(
 					user, "Pa$$w0rd");
 				if (result.Succeeded)

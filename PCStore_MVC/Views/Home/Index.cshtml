@@ -44,7 +44,7 @@
 						<h3>@Model.Categories[c].Description</h3>
 						<p>
 							<a asp-controller="Home" asp-action="CategoryDetail"
-					   asp-route-id="@Model.Categories[c].CategoryId" class="btn btn-primary">Смотреть</a>
+					   asp-route-categoryId="@Model.Categories[c].CategoryId" class="btn btn-primary">Смотреть</a>
 						</p>
 					</div>
 				</div>
@@ -71,4 +71,21 @@
 			</p>
 		</div>
 	</div>
+
+	@*<div class="card" style="width: 18rem;">
+		<img class="card-img-top" src="@($"/Products/a52b92d2-d1d5-41cf-a843-0ab1714c17e9.jpg")" alt="Card image cap">
+		<div class="card-body">
+			<h5 class="card-title">Card title</h5>
+			<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+		</div>
+		<ul class="list-group list-group-flush">
+			<li class="list-group-item">Cras justo odio</li>
+			<li class="list-group-item">Dapibus ac facilisis in</li>
+			<li class="list-group-item">Vestibulum at eros</li>
+		</ul>
+		<div class="card-body">
+			<a href="#" class="card-link">Card link</a>
+			<a href="#" class="card-link">Another link</a>
+		</div>
+	</div>*@
 }

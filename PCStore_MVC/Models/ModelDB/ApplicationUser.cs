@@ -21,9 +21,6 @@ namespace PCStore_MVC.Models.ModelDB
 		[Unicode(false)]
 		public string PhysycalAddress { get; set; } = null!;
 
-		[Column(TypeName = "image")]
-		public byte[]? ProfilePicture { get; set; }
-
 		[InverseProperty("ApplicationUser")]
 		public virtual ICollection<BasketProduct> BasketProducts { get; } = new List<BasketProduct>();
 

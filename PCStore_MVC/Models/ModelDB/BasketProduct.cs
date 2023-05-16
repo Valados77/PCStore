@@ -6,10 +6,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace PCStore_MVC.Models.ModelDB;
 
-[PrimaryKey("UserId", "ProductId")]
+[PrimaryKey( "UserId", "ProductId")]
 public partial class BasketProduct
 {
-    [Key]
+	[Key]
     public string UserId { get; set; }
 
     [Key]

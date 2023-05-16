@@ -16,7 +16,10 @@ namespace PCStore_MVC.Data
 		{
 			base.OnModelCreating(builder);
 
-			builder.HasDefaultSchema("Identity");
+            builder.Entity<Image>()
+                .HasKey(i => i.Id);
+
+            builder.HasDefaultSchema("Identity");
 			builder.Entity<ApplicationUser>(
 				entity => { entity.ToTable(name: "User"); }
 			);
@@ -58,5 +61,7 @@ namespace PCStore_MVC.Data
 		public virtual DbSet<Producer> Producers { get; set; }
 
 		public virtual DbSet<Product> Products { get; set; }
-    }
+
+		public virtual DbSet<Image> Images { get; set; }
+	}
 }

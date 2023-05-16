@@ -19,13 +19,13 @@ public partial class Product
 
     public int CategoryId { get; set; }
 
-    [Column(TypeName = "money")]
+    public Image Image { get; set; } = null!;
+
+	[Column(TypeName = "text")]
+    public string? Description { get; set; }
+
+	[Column(TypeName = "money")]
     public decimal UnitPrice { get; set; }
-
-    public short UnitsInStock { get; set; }
-
-    [Column(TypeName = "image")]
-    public byte[]? Picture { get; set; } = null!;
 
     [InverseProperty("Product")]
     public virtual ICollection<BasketProduct> BasketProducts { get; } = new List<BasketProduct>();

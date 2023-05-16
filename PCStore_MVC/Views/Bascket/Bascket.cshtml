@@ -1,0 +1,45 @@
+﻿@model IEnumerable<PCStore_MVC.Models.ModelDB.BasketProduct>
+
+@{
+	ViewData["Title"] = "Корзина";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@if (!Model.Any())
+{
+	<p>Корзина пуста.</p>
+}
+else
+{
+	<table class="table">
+		<thead>
+		<tr>
+			<th>Фото</th>
+			<th>Имя продукта</th>
+			<th>Цена</th>
+			<th></th>
+		</tr>
+		</thead>
+		<tbody>
+		@foreach (var basketProduct in Model)
+		{
+			<tr>
+					<td><img src="/Products/@(basketProduct.Product.Image.ImageTitle).@(basketProduct.Product.Image.Format)" alt="@basketProduct.Product.ProductName" width="100" height="100" /></td>
+					<td>@basketProduct.Product.ProductName</td>
+					<td>@basketProduct.Product.UnitPrice</td>
+				<td>
+						<a asp-controller="Bascket" asp-action="DeleteConfirmed"
+				   asp-route-productId="@basketProduct.ProductId" class="btn btn-primary">Удалить из корзины</a>
+				</td>
+			</tr>
+		}
+		</tbody>
+	</table>
+
+	<p>Общая стоимость: @Model.Sum(p => p.Product.UnitPrice) руб.</p>
+
+	<form method="post" action="/Cart/Checkout">
+		<button type="submit">Оформить заказ</button>
+	</form>
+}
